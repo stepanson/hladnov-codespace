@@ -9,6 +9,11 @@
   background: lime;
 }
 
+.zradlo {
+  background: red;
+}
+
+
 body {
   overflow: hidden;
 }

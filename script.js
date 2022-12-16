@@ -1,15 +1,34 @@
-function pohniHadem(dolu, doprava) {
-  const had = document.querySelector(".had");
-  console.log("Had je na " + had.id);
+let had = [document.querySelector(".had")]
+// push (i) vlozi i na konec
+// unshift(i) vlozi i na zacatek
+//pop () => i odebere posledni prvek
+//shift()=> odebere první prvek
 
-  let radek = parseInt(had.id.split(":")[0]);
-  let sloupec = parseInt(had.id.split(":")[1]);
+function pohniHadem(dolu, doprava) {
+  const hadiHlava = had[0] 
+  //had 0 = uplne prvni prvek pole zacatek(0,1,2,3,4...)konec
+    console.log("Had je na " + hadiHlava.id);
+
+  let radek = parseInt(hadiHlava.id.split(":")[0]);
+  let sloupec = parseInt(hadiHlava.id.split(":")[1]);
+  //rozdeli souradnici na radek a sloupec
   const idCil = radek + dolu + ":" + (sloupec + doprava);
   console.log("Had bude na " + idCil);
+//vyplyvne konecne souradnice, tam kde had bude mit hlavu, doprava muze byt pozitivni i negativni, 
+// idCil je zaroven pozice i hadiHlava
+  const CilovePolicko = document.getElementById(idCil);
 
-  const cil = document.getElementById(idCil);
-  cil.classList.add("had");
-  had.classList.remove("had");
+  had.unshift(CilovePolicko);
+
+  CilovePolicko.classList.add("had");
+  
+  if(CilovePolicko.classList.contains("zradlo")) {
+    console.log("had bude zrat");
+    CilovePolicko.classList.remove("zradlo");
+  } else {
+    const poleKterePrestavaBytHadem = had.pop();
+    poleKterePrestavaBytHadem.classList.remove("had");
+  }
 }
 
 function pohyb(udalost) {
@@ -30,5 +49,7 @@ function pohyb(udalost) {
     pohniHadem(1, 0);
   }
 }
+
+
 
 document.addEventListener("keydown", pohyb);
